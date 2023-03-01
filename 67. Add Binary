@@ -1,0 +1,36 @@
+
+
+URL : https://leetcode.com/problems/add-binary/
+
+class Solution:
+    def addBinary(self, a: str, b: str) -> str:
+        print(str(bin(add(int(a, 2), int(b, 2))))[2:])
+        return str(bin(add(int(a, 2), int(b, 2))))[2:]
+        
+        
+ OR
+ 
+class Solution:
+    def addBinary(self, a: str, b: str) -> str:
+        max_len=max(len(a),len(b))
+        a=a.zfill(max_len)
+        b=b.zfill(max_len)
+
+        result = '' 
+
+        carry = 0
+
+        for i in range(max_len - 1, -1, -1): 
+            temp = carry 
+            temp += 1 if a[i] == '1' else 0
+            temp += 1 if b[i] == '1' else 0
+            result = ('1' if temp % 2 == 1 else '0') + result 
+   
+            carry = 0 if temp < 2 else 1
+  
+        if carry != 0: 
+            result = '1' + result 
+
+
+        return result.zfill(max_len)
+
