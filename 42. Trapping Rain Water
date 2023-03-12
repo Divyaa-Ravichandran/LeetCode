@@ -2,6 +2,8 @@
 
 URL: https://leetcode.com/problems/trapping-rain-water/
 
+https://leetcode.com/problems/trapping-rain-water/solutions/1374608/c-java-python-maxleft-maxright-so-far-with-picture-o-1-space-clean-concise/
+
 
 class Solution:
     def trap(self, height: List[int]) -> int:
