@@ -1,0 +1,34 @@
+
+
+URL: https://leetcode.com/problems/missing-number/description/
+
+
+
+
+class Solution:
+    def missingNumber(self, nums: List[int]) -> int:
+        l=len(nums)
+        nums.sort()
+        c=0
+
+        for i in nums:
+            if i!=c:
+                return c
+            c+=1
+        return c
+
+      
+
+OR    
+      
+      
+
+class Solution:
+    def missingNumber(self, nums: List[int]) -> int:     
+        n=len(nums)
+        sumofn=n*(n+1)//2
+
+        sumofnums=sum(nums)
+        missingnum=sumofn-sumofnums
+        return missingnum
+
