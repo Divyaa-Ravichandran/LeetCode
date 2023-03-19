@@ -1,0 +1,58 @@
+
+URL: https://leetcode.com/problems/valid-palindrome/
+
+
+
+import re
+class Solution:
+    def isPalindrome(self, s: str) -> bool:
+        
+        newS = re.sub(r"[^a-zA-Z0-9]","",s)
+        print(newS)
+
+        a,b='',''
+        for i in s:
+            if 'a'<=i<='z' or 'A'<=i<='Z' or '0'<=i<='9':
+                if 'A'<=i<='Z':
+                    i=i.lower()
+                a+=i
+        if a=='':
+            return True
+        for i in range(len(a)-1,-1,-1):
+            b+=a[i]
+        print(b)
+        if a==b:
+            return True
+        else:
+            return False
+        
+        
+        
+
+OR
+
+
+
+
+import re
+class Solution:
+    def isPalindrome(self, s: str) -> bool:        
+        
+        
+        if len(s)==0:
+            return True
+        else:
+            start=0
+            s=s.lower()
+            news=re.sub(r"[^a-zA-Z0-9]","",s)
+            end=len(news)-1
+            while(start<end):
+                if news[start]==news[end]:
+                    start=start+1
+                    end=end-1
+                else:
+                    return False
+            return True
+
+            
+
