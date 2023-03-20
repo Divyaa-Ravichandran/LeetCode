@@ -1,0 +1,39 @@
+
+
+
+URL: https://leetcode.com/problems/word-pattern/
+
+
+class Solution:
+    def wordPattern(self, pattern: str, s: str) -> bool:
+        
+        s=s.split(" ")
+        return (len(set(pattern))==len(set(s))==len(set(zip_longest(pattern,s))))
+        
+        
+        
+OR
+
+
+
+class Solution:
+    def wordPattern(self, pattern: str, s: str) -> bool:
+
+        s=s.split(" ")
+        m=len(pattern)
+        n=len(s)
+        print(m)
+        print(n)
+        dic={}
+        if n!=m:
+            return False
+        
+        for i,j in zip(pattern,s):
+            if (i in dic and j!=dic[i]):
+                return False
+            dic[i] = j
+            if len(set(dic.values()))!=len(set(dic.keys())):
+                return False
+        return True
+
+
