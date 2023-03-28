@@ -49,3 +49,20 @@ OR
                 max_ending_here = 0
         return max_so_far
  
+
+
+OR
+
+
+
+maxSoFar = nums[0]
+        currentSum = nums[0]
+        
+        for i in range(1, len(nums)):
+            if (currentSum < 0):
+                currentSum = 0
+            currentSum += nums[i]
+            if (currentSum > maxSoFar):
+                maxSoFar = currentSum
+                
+        return maxSoFar
