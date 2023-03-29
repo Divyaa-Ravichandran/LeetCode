@@ -1,0 +1,28 @@
+
+URL: https://leetcode.com/problems/maximum-product-subarray/
+
+
+
+
+class Solution:
+    def maxProduct(self, nums: List[int]) -> int:
+        ans=0
+        currentProduct=1
+        if len(nums)==1:
+            return nums[0]
+        for i in nums:
+            if i!=0:
+                currentProduct=currentProduct*i
+                ans=max(ans,currentProduct)
+            else:
+                currentProduct=1
+        
+        currentProduct=1
+        for j in range(len(nums)-1,-1,-1):
+            if nums[j]!=0:
+                currentProduct=currentProduct*nums[j]
+                ans=max(ans,currentProduct)
+            else:
+                currentProduct=1
+
+        return ans
