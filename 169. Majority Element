@@ -32,7 +32,7 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
+        n=len(nums)
         nums.sort()
-        return nums[len(nums) // 2
-
+        return nums[n//2]
 
