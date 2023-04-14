@@ -1,0 +1,32 @@
+
+
+
+URL: https://leetcode.com/problems/longest-palindromic-subsequence/description/
+
+
+
+class Solution:
+    def longestPalindromeSubseq(self, s: str) -> int:
+        n=len(s)
+        self.s=s
+        self.dp={ }
+        return self.lps(0,n-1)
+
+    def lps(self,i,j):
+        
+        if i==j:
+            return 1
+        elif i<j:
+            if (i,j) in self.dp:
+                key=(i,j)
+                return self.dp[key]
+            else:
+                if self.s[i]==self.s[j]:
+                    self.dp[(i,j)] =self.lps(i+1,j-1)+2
+                else:
+                    self.dp[(i,j)] =max(self.lps(i+1,j),self.lps(i,j-1))
+                return self.dp[(i,j)]
+        else:
+            return 0
+
+
