@@ -1,0 +1,55 @@
+
+
+URL:    https://leetcode.com/problems/maximum-value-of-k-coins-from-piles/description/
+
+
+
+class Solution:
+    def maxValueOfCoins(self, piles: List[List[int]], k: int) -> int:
+        '''
+        self.piles=piles
+        self.k=k
+        self.n=len(self.piles)
+        #self.dp={ }
+        return self.dfs(0,k)
+
+
+    
+
+    def dfs(self,i,coins):
+        if i== self.n:
+            return 0
+
+        curPile=0
+        #res={}
+        res=self.dfs(i+1,coins)
+        #if (i,coins) in self.dp:
+                #key=(i,coins)
+                #return self.dp[key]
+
+        for j in range(min(coins,len(self.piles[i]))):
+            curPile+=self.piles[i][j]
+
+            res=max(res,curPile+self.dfs(i+1,coins-j-1))
+            #self.dp[(i,coins)]=res
+            
+        return res
+        '''
+        
+        
+        
+      OR
+      
+
+        dp = [[0] * (k + 1) for _ in range(len(piles) + 1)]
+        for i in range(1, len(piles) + 1):
+            for j in range(1, k + 1):
+                cur = 0
+                for x in range(min(len(piles[i - 1]), j)):
+                    cur += piles[i - 1][x]
+                    dp[i][j] = max(dp[i][j], cur + dp[i - 1][j - x - 1])
+                dp[i][j] = max(dp[i][j], dp[i - 1][j])
+        return dp[len(piles)][k]
+
+
+        
