@@ -1,0 +1,21 @@
+
+URL: https://leetcode.com/problems/find-the-maximum-divisibility-score/description/
+
+
+class Solution:
+    def maxDivScore(self, nums: List[int], divisors: List[int]) -> int:
+        d = {}
+        for i in divisors:
+            cnt =0 
+            for j in nums:
+                if j%i==0:
+                    cnt+=1
+            d[i] = cnt
+        mx = max(d.values())
+        ans =[]
+        for i,j in d.items():
+            if mx==j:
+                ans.append(i)
+        if len(ans)>1:
+            return min(ans)
+        return max(ans)
