@@ -1,0 +1,14 @@
+
+URL:   https://leetcode.com/problems/row-with-maximum-ones/
+
+
+class Solution:
+    def rowAndMaximumOnes(self, mat: List[List[int]]) -> List[int]:
+        mx_ones,ind =0,0
+        n = len(mat)
+        for i in range(n):
+            ones = mat[i].count(1)
+            if ones>mx_ones:
+                mx_ones = ones
+                ind = i
+        return [ind,mx_ones]
