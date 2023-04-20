@@ -1,0 +1,35 @@
+
+
+URL: https://leetcode.com/problems/is-subsequence/description
+
+
+class Solution:
+    def isSubsequence(self, s: str, t: str) -> bool:
+        '''
+        if len(s) > len(t):return False
+        if len(s) == 0:return True
+        subsequence=0
+        for i in range(0,len(t)):
+            if subsequence <= len(s) -1:
+                print(s[subsequence])
+                if s[subsequence]==t[i]:
+
+                    subsequence+=1
+        return  subsequence == len(s)
+        '''
+
+        i, j = 0, 0
+        #iterate till one of them reaches to the end
+        while i < len(s) and j < len(t):
+            if s[i] == t[j]:
+                #increment pointer i if s[i] is 
+                # same as t[i] th char
+                i += 1
+            # increment j regardless
+            j += 1
+        # if i reached the end then its true 
+        #false otherwise
+        return i == len(s)
+
+
+
