@@ -1,0 +1,29 @@
+
+URL: https://leetcode.com/problems/isomorphic-strings/description/
+
+
+
+
+class Solution:
+    def isIsomorphic(self, s: str, t: str) -> bool:
+        slen=len(s)
+        tlen=len(s)
+        dict1={}
+        dict2={}
+
+        s_to_t = {}
+        t_to_s = {}
+        
+        for i in range(slen):
+            if s[i] in dict1:
+                if dict1[s[i]]!=t[i]:
+                    return False
+            else:
+                if t[i] in dict2:
+                    return False
+
+            dict1[s[i]]=t[i]
+            dict2[t[i]]=s[i]
+
+        return True
+        
