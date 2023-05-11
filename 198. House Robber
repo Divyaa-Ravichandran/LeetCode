@@ -1,0 +1,50 @@
+
+URL: https://leetcode.com/problems/house-robber/description/
+
+
+class Solution:
+    def rob(self, nums: List[int]) -> int:
+        
+        if(len(nums)==0): return 0
+        if(len(nums)==1): return nums[0]
+        if(len(nums)==2): return max(nums)
+        
+        path=[0]*len(nums)
+        path[0]=nums[0]
+        path[1]=max(nums[0],nums[1])
+        
+        
+        for i in range(2,len(nums)):
+            path[i]=max((nums[i]+path[i-2]),(path[i-1]))
+            
+        
+        return path[-1]
+        
+        
+  OR  
+        
+ 
+class Solution:
+    def rob(self, nums: List[int]) -> int:
+        
+
+        self.dp={}
+        self.nums=nums
+        return self.f(0,True)
+
+    def f(self,i,canRob):
+        if i == len(self.nums)-1:
+            if canRob==True:
+                return self.nums[i]
+            else:
+                return 0
+
+        else:
+            if (i,canRob) not in self.dp:
+                if canRob==True:
+                    self.dp[(i,canRob)]=max(self.nums[i]+self.f(i+1,False),self.f(i+1,True))
+                else:
+                    self.dp[(i,canRob)]=self.f(i+1,True)
+
+            return self.dp[(i,canRob)]
+
