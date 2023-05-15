@@ -1,0 +1,30 @@
+
+
+URL:  https://leetcode.com/problems/swapping-nodes-in-a-linked-list/description/
+
+
+
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def swapNodes(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
+        start=head
+        for i in range(k-1):
+            start=start.next
+
+        left=start
+        right=head
+
+        while start.next:
+            start=start.next
+            right=right.next
+
+        left.val,right.val=right.val,left.val
+        return head
+
+
+#O(n)-Time
+#O(1)- Space
