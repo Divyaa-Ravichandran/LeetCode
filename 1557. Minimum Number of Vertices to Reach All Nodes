@@ -1,0 +1,22 @@
+
+
+URL:   https://leetcode.com/problems/minimum-number-of-vertices-to-reach-all-nodes/description/
+
+
+
+class Solution:
+    def findSmallestSetOfVertices(self, n: int, edges: List[List[int]]) -> List[int]:
+        indegree=[0]*(n+1)
+        for e in edges:
+            print(e[1])
+            indegree[e[1]]+=1
+
+        ans=[]
+        for i in range(n):
+            if indegree[i]==0:
+                ans.append(i)
+
+        return ans
+
+
+        #Time complexity=O(E+V)
