@@ -1,0 +1,32 @@
+
+URL: https://leetcode.com/problems/maximize-score-after-n-operations/description/
+
+
+
+class Solution:
+    def maxScore(self, nums: List[int]) -> int:
+        self.dp=collections.defaultdict(int)
+
+        self.nums=nums
+        return self.dfs(0,1)
+
+    def dfs(self,mask,op):
+        if mask in self.dp:
+            return self.dp[mask]
+
+        if op > len(self.nums) / 2:
+            return 0
+        
+        for i in range(len(self.nums)):
+            if (1<<i) & mask: continue
+            for j in range(i+1,len(self.nums)):
+                if (1<<j) & mask:
+                    continue
+                
+                newMask= mask|(1<<i)|(1<<j)
+                score=op*math.gcd(self.nums[i],self.nums[j]) 
+
+                self.dp[mask]=max(self.dp[mask],score+self.dfs(newMask,op+1))
+
+
+        return self.dp[mask]
