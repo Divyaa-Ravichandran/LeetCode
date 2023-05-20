@@ -1,0 +1,27 @@
+
+
+URL: https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/description/
+
+class Solution:
+    def strStr(self, haystack: str, needle: str) -> int:
+        
+        if (needle in haystack):
+            return haystack.find(needle)
+
+        else:
+            return -1
+        
+        
+   OR
+   
+   
+
+        
+        hlen=len(haystack)
+        nlen=len(needle)
+        firstElement=needle[0]
+        for i in range(hlen-nlen+1):
+            if haystack[i]==firstElement and haystack[i:i+nlen]==needle:
+                return i
+        return -1
+        
