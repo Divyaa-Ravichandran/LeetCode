@@ -1,0 +1,25 @@
+
+
+URL:  https://leetcode.com/problems/top-k-frequent-elements/description/
+
+
+class Solution:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        dict1={}
+        ans=[]
+        for i in nums:
+            if i in dict1:
+                dict1[i]+=1
+            else:
+                dict1[i]=1
+        
+        
+        z=sorted(dict1.values(),reverse=True)[k-1]
+        print(z)
+        for ele in dict1:
+            if dict1[ele]>=z:
+                ans.append(ele)
+            else:
+                continue
+        return ans
+            
