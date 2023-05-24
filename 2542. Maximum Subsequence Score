@@ -5,8 +5,8 @@ URL: https://leetcode.com/problems/maximum-subsequence-score/description/
 class Solution:
     def maxScore(self, nums1: List[int], nums2: List[int], k: int) -> int:
 
-        pairs=[(n1,n2) for n1,n2 in zip(nums1,nums2)]
-        pairs=sorted(pairs,key=lambda p:p[1],reverse=True)
+        pairs=[(n1,n2) for n1,n2 in zip(nums1,nums2)]# Array of pairs based on num2
+        pairs=sorted(pairs,key=lambda p:p[1],reverse=True)#sorting pairs based on desc order of nums2 i.e p[1]
 
         minheap=[]
         n1sum=0
@@ -14,9 +14,9 @@ class Solution:
 
 
         for n1,n2 in pairs:
-            n1sum+=n1
+            n1sum+=n1#We take sum of elements from numa1 i.e n1 and consider every element in nums2 as min , calculate the score and we find the max score
             heapq.heappush(minheap,n1)
-            if len(minheap)>k:
+            if len(minheap)>k:#len should not exceed k
                 n1pop=heapq.heappop(minheap)
                 n1sum-=n1pop
 
