@@ -1,0 +1,15 @@
+
+URL: https://leetcode.com/problems/remove-trailing-zeros-from-a-string/description/
+
+
+class Solution:
+    def removeTrailingZeros(self, num: str) -> str:
+        return num.rstrip('0')
+
+        '''
+        k=int(num)
+        while k%10==0:
+            k=k//10
+
+        return str(k)
+'''
