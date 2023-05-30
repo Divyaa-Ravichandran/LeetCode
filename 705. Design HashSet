@@ -1,0 +1,46 @@
+
+URL:  https://leetcode.com/problems/design-hashset/description/
+
+
+
+class MyHashSet:
+    
+    def __init__(self):
+        self.dict=defaultdict(int)
+
+    def add(self, key: int) -> None:
+        self.dict[key]=True
+
+    def remove(self, key: int) -> None:
+        self.dict[key]=False
+
+    def contains(self, key: int) -> bool:
+        return self.dict[key]
+
+
+# Your MyHashSet object will be instantiated and called as such:
+# obj = MyHashSet()
+# obj.add(key)
+# obj.remove(key)
+# param_3 = obj.contains(key)
+
+
+
+
+class MyHashSet:
+
+    def __init__(self):
+        self.hash=[]
+
+    def add(self, key: int) -> None:
+        if not self.contains(key):
+            self.hash.append(key)
+
+    def remove(self, key: int) -> None:
+        if self.contains(key):
+            self.hash.remove(key)
+
+    def contains(self, key: int) -> bool:
+        if key in self.hash:
+            return True
+        return False
