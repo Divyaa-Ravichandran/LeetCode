@@ -29,3 +29,25 @@ class Solution:
 
 
 #time complexity: O(N)
+
+
+
+OR
+
+
+
+#DFS
+        self.children=collections.defaultdict(list)
+        self.headID=headID
+        self.informTime=informTime
+        for child in range(len(manager)):
+            self.children[manager[child]].append(child)
+
+        return self.dfs(headID)
+
+    def dfs(self,node):
+        maxchildtime=0
+        for child in self.children[node]:
+            maxchildtime=max(maxchildtime,self.dfs(child))
+
+        return maxchildtime+self.informTime[node]
