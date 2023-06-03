@@ -1,0 +1,31 @@
+
+URL: https://leetcode.com/problems/time-needed-to-inform-all-employees/description/
+
+
+class Solution:
+    def numOfMinutes(self, n: int, headID: int, manager: List[int], informTime: List[int]) -> int:
+        adj=collections.defaultdict(list) #manager to List of Employees
+
+        for i in range(len(manager)):
+            adj[manager[i]].append(i)
+
+        print(adj)
+        #BFS
+
+        q=deque([(headID,0)]) # queue to append element and the time
+        #print(q)
+        res=0
+
+        while q:
+            i,time=q.popleft()
+            res=max(res,time)
+            
+            for nei in adj[i]:
+                q.append((nei,time+informTime[i])) #time taken to inform others+time taken to inform manager
+                
+                #print(q)
+                
+        return res
+
+
+#time complexity: O(N)
