@@ -1,0 +1,50 @@
+
+URL:  https://leetcode.com/problems/number-of-provinces/description/
+
+
+class Solution:
+    def findCircleNum(self, isConnected: List[List[int]]) -> int:
+        
+        result = 0
+        vis = [False] * len(isConnected)
+        
+        for i in range(len(isConnected)):
+            if not vis[i]:
+                self.dfs(isConnected, i, vis)
+                    
+                result += 1
+        
+        return result
+    
+    def dfs(self, grid, i, vis):
+        vis[i] = True
+        
+        for j in range(len(grid)):
+            if grid[i][j] == 1 and not vis[j]:
+                self.dfs(grid, j, vis)
+                
+
+OR 
+
+
+
+class Solution:
+    def findCircleNum(self, isConnected: List[List[int]]) -> int:
+             
+        matrix = isConnected
+        visited = set()
+        group = 0
+        for p in range(len(matrix)):
+            stack = []
+            stack.append(p)
+            if p not in visited:
+                group += 1
+            while stack:
+                i = stack.pop()
+                if i in visited:
+                    continue
+                visited.add(i)
+                for j in range(0,len(matrix[0])):
+                    if j not in visited and matrix[i][j] == 1:
+                        stack.append(j)
+        return group
