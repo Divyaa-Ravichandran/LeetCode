@@ -1,0 +1,46 @@
+
+
+URL: https://leetcode.com/problems/find-smallest-letter-greater-than-target/description/
+
+
+
+
+
+class Solution:
+    def nextGreatestLetter(self, letters: List[str], target: str) -> str:
+     
+        left=0
+        right=len(letters)-1
+
+        while left<=right:
+            mid=(left+right)//2
+
+            if letters[mid]<target:
+                left=mid+1
+            else:
+                right=mid-1
+           
+        if left<len(letters):
+            return letters[left]
+        else:
+            return letters[0]
+        
+        
+    OR
+    
+ class Solution:
+    def nextGreatestLetter(self, letters: List[str], target: str) -> str:   
+      
+        for p in letters:
+            if(ord(target)<ord(p)):
+                return p
+        return letters[0]
+    
+    
+    OR
+    
+   class Solution:
+    def nextGreatestLetter(self, letters: List[str], target: str) -> str:
+      
+
+        return letters[bisect(letters,target) % len(letters)]
