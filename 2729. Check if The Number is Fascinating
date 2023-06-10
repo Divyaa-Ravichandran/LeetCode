@@ -1,0 +1,10 @@
+
+
+
+
+
+class Solution:
+    def isFascinating(self, n: int) -> bool:
+       conc=str(n)+str(2*n)+str(3*n)
+       return len(conc)==len(set(conc))==9 and '0' not in conc
+        
