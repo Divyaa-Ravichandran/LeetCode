@@ -24,7 +24,6 @@ class Solution:
 OR
 
 
-
 class Solution:
     def summaryRanges(self, nums: List[int]) -> List[str]:
 
