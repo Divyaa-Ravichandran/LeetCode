@@ -4,26 +4,49 @@
 URL:  https://leetcode.com/problems/equal-row-and-column-pairs/description/
 
 
+'''
+Intuition
+The code counts the number of equal pairs of subgrids in a given grid. It uses a dictionary to store the frequency of encountered subgrids and iterates through the grid to construct and compare subgrids, incrementing the count when equal pairs are found.
+
+Approach
+Initialize an empty dictionary dic to store the frequency of subgrids and a variable count to keep track of the number of equal pairs.
+
+Iterate through each row i in the grid list:
+a. Convert the current row i to a string representation using str(i).
+b. Use the get() method of the dictionary dic to retrieve the frequency of the current row. If the row is not present in the dictionary, it returns 0, to which 1 is added. Then, update the dictionary with the new frequency.
+
+Iterate over a range from 0 to the length of the grid list:
+a. Initialize an empty list temp_lst to store the current column's elements.
+b. Iterate over a range from 0 to the length of the grid list:
+-Append the j-th element of the grid list's j-th row to the temp_lst.
+c. Convert the temp_lst to a string representation using str(temp_lst).
+d. Use the get() method of the dictionary dic to retrieve the frequency of the current column. If the column is not present in the dictionary, it returns 0.
+e. Add the obtained frequency to the count variable.
+Return the final value of the count variable, which represents the number of equal pairs of subgrids in the grid.
+
+Complexity
+Time complexity: O(n^2)
+
+Space complexity: O(n)
+'''
+
 
 class Solution:
     def equalPairs(self, grid: List[List[int]]) -> int:
         
-        m=defaultdict(int)
-        cnt=0
-        #print(m)
-        for row in grid:
-            m[str(row)] += 1
+      dic={}
+        count=0
+        for i in grid:
+            dic.update({str(i):dic.get(str(i),0)+1})e
         
-        #print(m)
-        for i in range(len(grid[0])):
-            col = []
+        for i in range(len(grid)):
+            temp_list=[]
             for j in range(len(grid)):
-                col.append(grid[j][i])
-                #print(col)
-            cnt += m[str(col)]
-            print(m)
+                temp_list.append(grid[j][i])
 
-        return cnt
+            count+=dic.get(str(temp_list),0)
+
+        return count
         
 OR
 
