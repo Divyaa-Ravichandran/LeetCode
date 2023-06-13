@@ -1,0 +1,44 @@
+
+
+
+URL:  https://leetcode.com/problems/equal-row-and-column-pairs/description/
+
+
+
+class Solution:
+    def equalPairs(self, grid: List[List[int]]) -> int:
+        
+        m=defaultdict(int)
+        cnt=0
+        #print(m)
+        for row in grid:
+            m[str(row)] += 1
+        
+        #print(m)
+        for i in range(len(grid[0])):
+            col = []
+            for j in range(len(grid)):
+                col.append(grid[j][i])
+                #print(col)
+            cnt += m[str(col)]
+            print(m)
+
+        return cnt
+        
+OR
+
+
+
+class Solution:
+    def equalPairs(self, grid: List[List[int]]) -> int:
+
+        n=len(grid)
+        transpose=[[grid[j][i] for j in range(len(grid))] for i in range(len(grid[0]))]
+
+        count=0
+        for row in grid:
+            for column in transpose:
+                if row==column:
+                    count+=1
+        return count
+        
