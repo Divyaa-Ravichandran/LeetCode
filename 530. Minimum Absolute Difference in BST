@@ -1,0 +1,50 @@
+
+
+URL: https://leetcode.com/problems/minimum-absolute-difference-in-bst/description/
+
+
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def getMinimumDifference(self, root: Optional[TreeNode]) -> int:
+        
+        cur, stack, minDiff, prev = root, [], 10**5, -10**5
+        
+        while stack or cur:
+            while cur:
+                stack.append(cur)
+                cur = cur.left
+            node = stack.pop()
+            minDiff = min(minDiff, node.val - prev)
+            prev = node.val
+            cur = node.right
+        
+        return minDiff
+       
+       
+OR        
+       
+
+class Solution:
+    def getMinimumDifference(self, root: Optional[TreeNode]) -> int:
+        
+        self.min_diff=float('inf')
+        self.prev_val=None
+
+        def dfs(root):
+            if root is None: return
+
+            dfs(root.left)
+            if self.prev_val is not None:
+                self.min_diff=min(self.min_diff, abs(root.val-self.prev_val))
+
+            self.prev_val=root.val
+            dfs(root.right)
+        dfs(root)
+
+        return self.min_diff
