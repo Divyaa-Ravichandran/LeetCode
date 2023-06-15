@@ -1,0 +1,66 @@
+
+
+URL:  https://leetcode.com/problems/maximum-level-sum-of-a-binary-tree/description/
+
+
+Intuition
+The problem aims to find the level in a binary tree that has the maximum sum of node values. By traversing the tree in a breadth-first manner, we can calculate the sum of node values at each level and keep track of the maximum sum encountered.
+
+Approach
+Initialize a queue with the root node and set the maximum level and maximum sum to 1 and negative infinity, respectively.
+Perform a breadth-first traversal of the binary tree using the queue.
+At each level, calculate the sum of node values and store it in a variable.
+Update the maximum sum and maximum level if the current level's sum is greater than the previous maximum.
+Enqueue the children of the current nodes to process the next level.
+Repeat steps 3-5 until all levels have been processed.
+Return the maximum level with the maximum sum.
+Complexity
+Time complexity: O(n)O
+Space complexity: O(n)
+
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def maxLevelSum(self, root: Optional[TreeNode]) -> int:
+        if not root:
+            return 0
+        queue=[root]
+        maxlevel=1
+        maxsum=float('-inf')
+        level=1
+
+
+        while queue:
+            # Initialize level sum and next level
+            levelsum=0
+            nextlevel=[]
+
+
+            # Process nodes at the current level
+            for node in queue:
+                # Update the level sum with the value of the current node
+                levelsum+=node.val
+
+                # Add the left and right child of the current node to the next level
+                if node.left:
+                    nextlevel.append(node.left)
+                if node.right:
+                    nextlevel.append(node.right)
+
+            # Update the maximum sum and level if the current level sum is greater
+            if levelsum > maxsum:
+                maxsum=levelsum
+                maxlevel=level
+
+# Move to the next level
+            queue=nextlevel
+            level+=1
+
+# Return the maximum level with the maximum sum
+        return maxlevel
+                
