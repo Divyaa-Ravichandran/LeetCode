@@ -1,0 +1,155 @@
+URL:  https://leetcode.com/problems/make-array-strictly-increasing/description/
+
+class Solution:
+    def makeArrayIncreasing(self, arr1: List[int], arr2: List[int]) -> int:
+        '''
+        arr2=list(set(arr2))
+
+        ans=self.solve(arr1,arr2,-1,0)
+        #print(arr2)
+        #ans=self.solve(arr1,arr2,-1,0,{})
+        if ans>=100000:
+            return -1
+
+        return ans
+
+    def solve(self,arr1,arr2,prev,curr):
+# def solve(self,arr1,arr2,prev,curr,dp):
+        if curr>=len(arr1):
+            return 0
+
+            
+        #if (curr,prev) in dp:
+            #return dp[curr, prev]
+
+        ind=self.bs(arr2,prev)
+
+        pick=notpick=100000
+        if ind == len(arr2) and arr1[curr]<=prev:
+            return 100000
+
+        
+        if ind<len(arr2):
+            pick=self.solve(arr1,arr2,arr2[ind],curr+1) +1
+            #pick=self.solve(arr1,arr2,arr2[ind],curr+1,dp) +1
+
+        if arr1[curr]>prev:
+            notpick=self.solve(arr1,arr2,arr1[curr],curr+1)
+            #notpick=self.solve(arr1,arr2,arr1[curr],curr+1,dp)
+        #dp[curr,prev] = min(pick,notpick)
+
+        return min(pick,notpick)
+
+    def bs(self,arr,x):
+        l=0
+        u=len(arr)-1
+        ans=u+1
+
+        while l<=u:
+            mid=(l+u)//2
+            if arr[mid]>x:
+                ans=mid
+                u=mid-1
+            else:
+                l=mid+1
+
+
+        return ans
+
+        # The ABOVE CODE RAN ONLY 19 TEST CASES 
+'''
+
+
+
+
+
+'''
+
+
+We need to make the array strictly increasing 
+We can take items from array 2 to replace any item in array 1 : arr1[i] = arr2[j]
+Now we need to find the conditions in which we want to replace
+
+The condition is very simple :
+   when arr1[i-1] >= arr1[i] : we know that arr1[:i] is strictly increasing but at index  = i
+   our array is not strictly increasing so we need to replace arr1[i] by a value larger than 
+   arr1[i-1] 
+   lets say given arr1[i-1] = 10 and arr1[i] = 2
+   and arr2 = [ 1 , 3 , 11 , 13 , 15 ,19]
+   so we can replace arr1[i] by 11 or 13 or 15 or 19
+   We can try all these values one by one as brute force
+   But if we think greedy we can understand that the best value is the 
+   value next greater than arr1[i] 
+   Why ? Because the lower the value at arr1[i] the better we have for arr1[i+1] to be 
+   strictly increasing
+   
+   So we will choose 11 here , 
+   Now one more point here : as we have choosen 11 and the arr[i+1] will be wither greater
+   than 11 or we have to replace it by a value greater than 11 hence 1 , 3 , 11 from arr2 is 
+   now useless , but we can agree to this point only when arr2 is sorted else there is no 
+   guarantee previous elements are smaller than current element or not
+   
+   So we sort the arr2 and once we have choosen an index k from arr2 for replcement we just
+   need arr2 from k + 1
+   
+   
+   
+Now what if we dont need to replace : arr1[i-1] < arr1[i]:
+  Here we have a choice :
+  1. replce arr1[i]
+  2. dont replace arr[i]
+
+  We will replce arr1[i] same as we did in the above condition
+  So we have to do two recursions here 
+  
+HENCE RECURSION CASE WILL BE:
+
+1. if prev element < current element
+     # WE HAVE CHOICE
+	 choice1 = recursion with replacing current element
+	 choice2 = recursion without replacing
+
+2. else 
+    choice1 = recursion with replacing current element
+	
+IN THE RECURSION WE WILL HAVE FOLLOWING VARIABLES:
+     we need arr1, arr2, index_i , index_j ( for arr1 and arr2 respecitvely) and prev_element
+	 
+	 here index_i , index_j and prev will change throughout thr recursion so we will 
+	 memoize them 
+	 
+	 hence dp = { key : (index_i,index_j,prev) value = ans of the  key }
+
+OPTIMIZIATION
+    see while searching for the next larger element than arr1[i] in arr2[index_j : ]
+	we are doing a linear search initially
+	
+	but case is we are doing a search in sorted array so we switch to binary search
+	
+	'''
+
+        n1 , n2, dp = len(arr1) , len(arr2) , {}
+        arr2.sort()
+        
+        def solve(i , j , prev):
+            
+            if i == n1:return 0
+            
+            if (i,j,prev) in dp: return dp[(i,j,prev)]
+            
+            k = bisect.bisect_right(arr2[j:],prev) + j
+            print(k)
+        
+            ans = float('inf') if k == n2 else solve(i+1,k+1,arr2[k]) + 1
+            
+            if arr1[i] > prev:ans = min(ans,solve(i+1 , j ,arr1[i]))
+            
+            dp[(i,j,prev)] = ans
+            
+            return ans
+        
+        
+        ans = solve(0,0,-float('inf'))
+        
+        return ans if ans != float('inf') else -1
+
