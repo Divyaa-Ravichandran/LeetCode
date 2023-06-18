@@ -1,0 +1,40 @@
+
+url:  https://leetcode.com/problems/number-of-increasing-paths-in-a-grid/description/
+
+
+
+class Solution:
+    def countPaths(self, grid: List[List[int]]) -> int:
+        noofrows=len(grid)
+        noofcols=len(grid[0])
+        res=0
+
+        dp=[[-1 for _ in range(noofcols)] for _ in range(noofrows)]
+
+        for row in range(noofrows):
+            for col in range(noofcols):
+                res+=self.dfs(row,col,-1,dp,grid)
+        return res%(10**9+7)
+
+    def dfs(self, row, col,prev,dp,grid):
+        directions=[[0,1],[0,-1],[1,0],[-1,0]]
+
+        if row < 0 or col < 0 or row >= len(grid) or col >= len(grid[0]) or grid[row][col] <= prev:
+            return 0
+
+        if dp[row][col]!=-1:
+            return dp[row][col]
+
+        ans=1
+
+        for d in directions:
+            newrow=row+d[0]
+            newcol=col+d[1]
+            ans+=self.dfs(newrow,newcol,grid[row][col],dp, grid)
+
+        dp[row][col]=ans
+        return ans        
+        
+        
+        # TC= O(m*n)
+        # SC= O(m*n)
