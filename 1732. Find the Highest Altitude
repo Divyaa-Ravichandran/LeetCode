@@ -1,0 +1,38 @@
+
+
+URL:  https://leetcode.com/problems/find-the-highest-altitude/description/
+
+
+class Solution:
+    def largestAltitude(self, gain: List[int]) -> int:
+ #TC-O(N) and SC=O(N)
+        res=[]
+        sumalt=0
+        res.append(0)
+        res.append(gain[0])
+        for i in range(1,len(gain)):
+            sumalt=res[i]+gain[i]
+            res.append(sumalt)
+
+        return max(res)
+#OR
+
+        return max(accumulate(gain, initial=0))
+
+#OR
+#TC-O(N) and SC=O(1)
+        gain = [0] + gain 
+        for i in range(1, len(gain)):
+            gain[i] += gain[i-1]
+
+        return max(gain)
+
+#OR
+
+#TC-O(N) and SC=O(1)
+        high=0
+        total=0
+        for i in gain:
+            total+=i
+            high=max(high,total)
+        return high
