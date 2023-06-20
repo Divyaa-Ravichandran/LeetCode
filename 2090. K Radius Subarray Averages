@@ -1,0 +1,31 @@
+
+
+URL:   https://leetcode.com/problems/k-radius-subarray-averages/description/
+
+
+
+class Solution:
+    def getAverages(self, nums: List[int], k: int) -> List[int]:
+        res=[-1]*len(nums) # resulting array initialised to -1
+        winsum=0
+        diameter=2*k+1 # to have (i+k) and (i-k) inclsuive of index
+        left=right=0 
+        n=len(nums)
+        while left<n and right<n:
+            winsum+=nums[right]
+            if right-left+1==diameter:# as soon there are number of elements equal to the diamater
+                ans=winsum//diameter # calculate avg
+                m=left+k #insert at m location ,k the location
+                res[m]=ans # insert at m in res
+                winsum-=nums[left] # since we would move the window we would subtract the left element
+                left+=1 # moved past one index from left
+               
+            right+=1 # moved past one index at right and thus would include value of the right index to winsum that is done at the 10th line of the code
+        
+
+# when we have number of elements less than diameter elements, we would return the array (res) with the res -1 for the rest of the locations.
+        return res
+
+# Time complexity- O(N)
+#Space complexity- O(N)
+            
