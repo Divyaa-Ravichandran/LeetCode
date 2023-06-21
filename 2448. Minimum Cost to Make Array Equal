@@ -1,0 +1,61 @@
+
+
+URL:   https://leetcode.com/problems/minimum-cost-to-make-array-equal/description/
+
+
+
+class Solution:
+    def minCost(self, nums: List[int], cost: List[int]) -> int:
+      
+     
+        # We know that the final array will have only one distinct element. 
+        # We also know that this element is already present in the array and 
+        # so we can set our search range to be between the minumum and maximum
+        # values of nums.
+        left, right = min(nums), max(nums)
+
+        # We just need to initialize a totalCost variable
+        totalCost = 0
+
+        # Now we Binary Search over the current range.
+        while left < right:
+            # We get the midpoint. This is the value that we will
+            # change all other elements in nums to. 
+            mid = (left + right) // 2
+
+            # We need to calculate two values to determine the direction
+            # in which the totalCost is moving
+            cost1 = self.calculateCost(mid, nums, cost)
+            cost2 = self.calculateCost(mid+1, nums, cost)
+
+            # We make our totalCost to be the minimum of the costs we
+            # see
+            totalCost = min(cost1, cost2)
+
+            # If Cost1 is greater, that means that the area to the left
+            # of mid is increasing and therefore the minimum cost won't be 
+            # found here and we can adjust our search area to the right. By
+            # the same logic, we can adjust the search area to the left if 
+            # the area to the right of mid is increasing. 
+            if cost1 > cost2:
+                left = mid + 1 
+            else:
+                right = mid 
+    
+        # Now that we have arrived at the minimum cost, we can return the
+        # result
+        return totalCost
+    
+    def calculateCost(self, value: int, nums: List[int], cost: List[int]) -> int:
+       
+        # Initialize cost to 0
+        total = 0
+
+        # For each num in nums, we get the difference between num and the
+        # desired value and multiply it by its cost to get the cost of
+        # changing the current element to match value. 
+        for num, price in zip(nums, cost):
+            total += (abs(num - value) * price)
+        
+        # Return the total cost
+        return total 
