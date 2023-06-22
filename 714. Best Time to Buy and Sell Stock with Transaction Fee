@@ -1,0 +1,16 @@
+
+
+URL:  https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/description/
+
+
+
+class Solution:
+    def maxProfit(self, prices: List[int], fee: int) -> int:
+        ownshare=-prices[0]
+        profit=0
+
+        for price in prices:
+            ownshare=max(ownshare,profit-price)
+            profit=max(profit,ownshare+price-fee)
+
+        return profit
