@@ -1,0 +1,19 @@
+
+URL: https://leetcode.com/problems/find-maximum-number-of-string-pairs/description/
+
+
+
+class Solution:
+    def maximumNumberOfStringPairs(self, words: List[str]) -> int:
+        word_set = set()
+        pairs = 0
+
+        for word in words:
+            reverse = word[::-1]
+            if reverse in word_set:
+                pairs += 1
+                word_set.remove(reverse)
+            else:
+                word_set.add(word)
+
+        return pairs
