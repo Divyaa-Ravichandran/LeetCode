@@ -1,0 +1,48 @@
+
+URL:  https://leetcode.com/problems/total-cost-to-hire-k-workers/description/
+
+
+
+class Solution:
+    def totalCost(self, costs: List[int], k: int, candidates: int) -> int:
+        n=len(costs)
+        i=0
+        j=n-1
+        heap1=[]
+        heap2=[]
+        cnt=candidates
+        
+        while cnt>0:
+            heappush(heap1,costs[i])
+            
+            i+=1
+            cnt-=1
+        cnt=candidates
+        while j>=i and cnt>0:
+            heappush(heap2,costs[j])
+            
+            j-=1
+            cnt-=1
+
+        ans=0
+
+        for _ in range(k):
+            if not heap1:
+                ans+=heappop(heap2)
+            elif not heap2:
+                ans+=heappop(heap1)
+            else:
+                if heap1[0]<=heap2[0]:
+                    ans+=heappop(heap1)
+                    if i<=j:
+                        heappush(heap1,costs[i])
+                        i+=1
+                else:
+                    ans+=heappop(heap2)
+                    if i<=j:
+                        heappush(heap2,costs[j])
+                        j-=1
+
+        return ans
+
+        
