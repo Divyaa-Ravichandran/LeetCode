@@ -1,0 +1,46 @@
+
+URL: https://leetcode.com/problems/path-with-maximum-probability/description/
+
+
+
+class Solution:
+    def maxProbability(self, n: int, edges: List[List[int]], succProb: List[float], start: int, end: int) -> float:
+
+
+        # adjacency matrix
+        adj=[[] for _ in range(n)]
+
+        #unwrapping vertices and probability
+        for i in range(len(edges)):
+            u,v=edges[i]
+            p=succProb[i]
+
+        #Adjacency matrix where each node is associated with a list of neighbouring nodes and their probabilities
+            adj[u].append((v,p))
+            adj[v].append((u,p))
+
+        #distance array initialising to 0.0 for all nodes and 1.0 for the start node 
+        dist=[0.0]*n
+        dist[start]=1.0
+
+        #Queue to perform BFS 
+        queue=deque([start])
+
+
+        # While queue gets empty. Perform BFS
+        while queue:
+            # Deque from the front node of queue.
+            curr=queue.popleft()
+
+            # Iterate through the neighbours of the dequued node using adj list
+            for node,prob in adj[curr]:
+                # calculate new probability by multiplying prob of current node with prob of corresponding edge
+                new_prob=dist[curr]*prob
+
+                #if new probability is greater than current probability, update distance  array with new probability and enqueue node to continue BFS
+                if new_prob>dist[node]:
+                    dist[node]=new_prob
+                    queue.append(node)
+
+
+        return dist[end]
