@@ -1,0 +1,53 @@
+
+
+URL:  https://leetcode.com/problems/buddy-strings/description/
+
+
+class Solution:
+    def buddyStrings(self, s: str, goal: str) -> bool:
+        cnt=0
+
+        #if len is not same and if len of s is 1, then it returns False
+        if len(goal)!=len(s) or len(s)==1:
+            return False
+        
+        # convert s and goal to list
+        a,b=list(s),list(goal)
+
+#sort the list
+        a.sort()
+        b.sort()
+
+
+#if list is not same ,more than 2 elements are differnt ,return False
+        if a!=b:
+            return False
+
+# reverse the string s, if same , return true
+        if s==s[::-1]:
+            return True
+# create dictionary
+        dic={}
+ 
+# for element in s, add freq in dic
+        for i in s:
+            if i in dic:
+                dic[i]+=1
+            else:
+                dic[i]=1
+
+
+# count the number of differences in both s and goal
+        for i in range(len(s)):
+            if s[i]!=goal[i]:
+                cnt+=1
+
+# if count is 0, then check for if the elements are same , like aa and aa in s and goal, i.e freq would be 2 or greater than that
+        if cnt==0:
+            for i in dic:
+                if dic[i]>=2:
+                    return True
+                    
+        if cnt==2:
+            return True
+        
