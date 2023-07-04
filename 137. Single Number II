@@ -1,0 +1,32 @@
+
+URL:  https://leetcode.com/problems/single-number-ii/description/
+
+
+class Solution:
+    def singleNumber(self, nums: List[int]) -> int:
+        '''
+        dic={}
+        for i in range(len(nums)):
+            if nums[i] in dic:
+                dic[nums[i]]+=1
+            else:
+                dic[nums[i]]=1
+
+        print(dic)
+        for k,v in dic.items():
+            if v==1:
+                return k
+
+
+   '''
+
+
+or
+
+
+        ones = 0
+        twos = 0
+        for num in nums:
+            ones = (ones ^ num) & ~twos
+            twos = (twos ^ num) & ~ones
+        return ones
