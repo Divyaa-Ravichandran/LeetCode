@@ -1,0 +1,23 @@
+
+URL:  https://leetcode.com/problems/defanging-an-ip-address/description/
+
+
+JAVA
+
+class Solution {
+    public String defangIPaddr(String address) {
+        String s= address.replace(".","[.]");
+        return s;
+        
+    }
+}
+
+
+
+OR
+
+PYTHON
+
+class Solution:
+    def defangIPaddr(self, address: str) -> str:
+        return address.replace('.','[.]')a
